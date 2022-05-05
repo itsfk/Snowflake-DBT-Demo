@@ -51,10 +51,14 @@ left join get_store using (service_station_name)
   ,to_date(concat('20',year,'-',month,'-',day)) as full_date
   ,round(diff_vs_pre_day_price/pre_day_price * 100,2) as increase_rate
   from pre_price
-  )
-  
-  select * from increse_rate 
-  
+  ), change_null as (
+   select * 
+  ,case when increase_rate IS NULL then 0 else increase_rate end AS increase_rate_with_no_null
+  from increse_rate )
+
+
+
+  select * from change_null
 
 
 
