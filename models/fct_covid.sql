@@ -15,4 +15,4 @@ factcovid as (
 FROM data cc
 WHERE cc.POSTCODE is Not null 
 )
-select * from factcovid
+select *  from factcovid

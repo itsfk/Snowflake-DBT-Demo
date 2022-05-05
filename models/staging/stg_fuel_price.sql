@@ -1,4 +1,4 @@
-{{ config(materialized='table') }}
+{{ config(materialized='view') }}
 
   select year(to_date(price_updated_date)) as year
   ,month(to_date(price_updated_date)) as month
