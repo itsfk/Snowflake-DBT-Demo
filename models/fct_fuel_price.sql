@@ -27,7 +27,7 @@ left join get_store using (service_station_name)
   ,month
   ,day
   ,fuel_code
-  ,postcode
+  ,to_varchar(postcode) as postcode
   ,suburb
   ,brand
   ,service_station_name
@@ -56,9 +56,7 @@ left join get_store using (service_station_name)
   ,case when increase_rate IS NULL then 0 else increase_rate end AS increase_rate_with_no_null
   from increse_rate )
 
-
-
-  select * from change_null
+  select * from change_null 
 
 
 

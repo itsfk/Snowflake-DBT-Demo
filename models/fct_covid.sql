@@ -5,16 +5,11 @@ with data as (
 
     select * from {{ ref('stg_covid' )}}
 
-),no_null as (
-select *
-, CASE WHEN postcode = 'None' THEN 'NULL' ELSE postcode END as postcode
-FROM data 
-WHERE POSTCODE is Not null 
-
 ), factcovid as (
  SELECT  NOTIFICATION_DATE as DATE_TESTED
+,postcode 
  ,COUNT(CONFIRMED_CASES_COUNT) as Number_of_Cases
-from no_null
-group by NOTIFICATION_DATE
+from data 
+group by NOTIFICATION_DATE,postcode
 )
-select *  from factcovid 
+select * from factcovid 
