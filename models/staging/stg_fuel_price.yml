@@ -1,0 +1,22 @@
+version: 2
+
+models:
+  - name: stg_covid
+    columns: 
+      - name: NOTIFICATION_DATE
+        tests:
+          - not_null
+      - name: postcode
+        tests:
+          - not_null
+
+  - name: stg_fuel_price
+    columns:
+      - name: postcode
+        tests:
+          - not_null
+      - name: price
+        tests:
+          - not_null
+
+                

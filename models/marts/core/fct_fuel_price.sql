@@ -2,7 +2,7 @@
 
 with get_record as (
 
-    select * from {{ ref('fuel_price_record' )}}
+    select * from {{ ref('dim_fuel_price_record' )}}
 
 ), get_store as (
 

@@ -10,3 +10,4 @@
   ,service_station_name
   ,price
   from FIVETRAN_DATABASE.FUEL_PRICE.fuel_price
+  where postcode is not null
