@@ -18,5 +18,8 @@ models:
       - name: price
         tests:
           - not_null
-
+      - name: fuel_code
+        tests:
+          - accepted_values:
+              values: ['U91', 'P95', 'P98', 'E10', 'PDL', 'LPG', 'E85', 'B20', 'DL','EV','LNG','PLD',] 
                 

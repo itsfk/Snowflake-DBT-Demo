@@ -10,4 +10,4 @@ select
   ,to_date(substr(REPLACE(PRICE_UPDATED_DATE,'/','-'),1,10),'DD-MM-YYYY' )as new_date
 from MODERN_DATA_STACK.S3.FUEL_PRICES 
   --from FIVETRAN_DATABASE.FUEL_PRICE.FUEL_PRICE
-  where postcode is not null
+  where postcode is not null and fuel_code is not null
