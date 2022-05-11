@@ -18,14 +18,16 @@ from get_record
 left join get_store using (service_station_name)
 ), get_avg as (
     select *
-    ,count(price)over(partition by year,month,day,fuel_code,postcode,suburb,brand,service_station_name) as number_of_price_change_per_day
-    ,row_number() over(partition by  year,month,day,fuel_code,postcode,suburb,brand,service_station_name order by price) as price_rank_per_day
-    ,round(avg(price) over(partition by  year,month,day,fuel_code,postcode,suburb,brand,service_station_name ),2) as avg_daily_price
+    ,count(price)over(partition by new_date,fuel_code,postcode,suburb,brand,service_station_name) as number_of_price_change_per_day
+    ,row_number() over(partition by  new_date,fuel_code,postcode,suburb,brand,service_station_name order by price) as price_rank_per_day
+    ,round(avg(price) over(partition by  new_date,fuel_code,postcode,suburb,brand,service_station_name ),2) as avg_daily_price
     from get_together
   ),avg_month as (
-  select year
-  ,month
-  ,day
+  select 
+  new_date
+  ,year(new_date) as year
+  ,month(new_date) as month
+  ,day(new_date) as day
   ,fuel_code
   ,to_varchar(postcode) as postcode
   ,suburb
@@ -48,7 +50,7 @@ left join get_store using (service_station_name)
   ),increse_rate as (
   
   select * 
-  ,to_date(concat('20',year,'-',month,'-',day)) as full_date
+
   ,round(diff_vs_pre_day_price/pre_day_price * 100,2) as increase_rate
   from pre_price
   ), change_null as (

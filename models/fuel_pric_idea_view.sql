@@ -2,9 +2,9 @@
 
 
 with get_date as (
-  select year(to_date(price_updated_date)) as year
-  ,month(to_date(price_updated_date)) as month
-  ,day(to_date(price_updated_date)) as day
+  select substr(PRICE_UPDATED_DATE,1,2) as day
+  ,substr(PRICE_UPDATED_DATE,4,2) as month
+  ,substr(PRICE_UPDATED_DATE,7,4) as year
   ,fuel_code
   ,postcode
   ,suburb
@@ -14,7 +14,7 @@ with get_date as (
   ,count(price)over(partition by year,month,day,fuel_code,postcode,suburb,brand,service_station_name) as number_of_price_change_per_day
   ,row_number() over(partition by  year,month,day,fuel_code,postcode,suburb,brand,service_station_name order by price) as price_rank_per_day
   ,round(avg(price) over(partition by  year,month,day,fuel_code,postcode,suburb,brand,service_station_name ),2) as avg_daily_price
-  from FIVETRAN_DATABASE.FUEL_PRICE.fuel_price
+  from  MODERN_DATA_STACK.S3.FUEL_PRICES 
   ),avg_month as (
   select year
   ,month

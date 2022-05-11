@@ -1,9 +1,7 @@
  {{ config(materialized='table') }}
  
   select 
-  year
-  ,month
-  ,day
+   new_date
   ,fuel_code
   ,service_station_name
   ,price

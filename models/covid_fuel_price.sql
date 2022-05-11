@@ -20,7 +20,7 @@
  ,get_covid.number_of_cases as number_of_cases_per_day
   from get_fct_fuel 
 inner join get_covid 
-ON get_fct_fuel.full_date = get_covid.DATE_TESTED
+ON get_fct_fuel.new_date = get_covid.DATE_TESTED
  --nvl(get_fct_fuel.full_date,'1995-01-05') = nvl(get_covid.DATE_TESTED,'1995-01-05')
 and  
  get_fct_fuel.postcode = get_covid.postcode

@@ -1,13 +1,13 @@
 {{ config(materialized='view') }}
 
-  select year(to_date(price_updated_date)) as year
-  ,month(to_date(price_updated_date)) as month
-  ,day(to_date(price_updated_date)) as day
-  ,fuel_code
+select 
+  fuel_code
   ,postcode
   ,suburb
   ,brand
   ,service_station_name
   ,price
-  from FIVETRAN_DATABASE.FUEL_PRICE.fuel_price
+  ,to_date(substr(REPLACE(PRICE_UPDATED_DATE,'/','-'),1,10),'DD-MM-YYYY' )as new_date
+from MODERN_DATA_STACK.S3.FUEL_PRICES 
+  --from FIVETRAN_DATABASE.FUEL_PRICE.FUEL_PRICE
   where postcode is not null
